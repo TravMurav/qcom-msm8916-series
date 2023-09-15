@@ -48,7 +48,7 @@ LOCAL_POST_INSTALL_CMD += \
     ln -sf /vendor/odm/modem/image/wcnss.b10 $(TARGET_OUT_VENDOR)/firmware/wcnss.b10; \
     ln -sf /vendor/odm/modem/image/wcnss.b11 $(TARGET_OUT_VENDOR)/firmware/wcnss.b11; \
     ln -sf /vendor/odm/modem/image/wcnss.mdt $(TARGET_OUT_VENDOR)/firmware/wcnss.mdt; \
-    ln -sf /vendor/odm/persist/WCNSS_tct_wlan_nv.bin $(TARGET_OUT_VENDOR)/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin;
+    ln -sf /vendor/odm/persist/WCNSS_qcom_wlan_nv.bin $(TARGET_OUT_VENDOR)/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin;
 
 # Symlink non-splitted venus fimware for backward compatibility
 LOCAL_POST_INSTALL_CMD += \
