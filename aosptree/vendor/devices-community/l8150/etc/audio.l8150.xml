@@ -1,0 +1,94 @@
+<audiohal>
+    <mixer name="msm8916">
+        <!-- UCM : https://github.com/msm8916-mainline/alsa-ucm-conf/blob/master/ucm2/msm8916/HiFi.conf -->
+        <init>
+            <!-- from platforms/msm8916/qdsp6.conf & qdsp6-components.conf, for crackling -->
+            <ctl name="PRI_MI2S_RX Audio Mixer MultiMedia1" val="1" />
+            <ctl name="MultiMedia2 Mixer TERT_MI2S_TX" val="1" />
+            <ctl name="QUAT_MI2S_RX Audio Mixer MultiMedia3" val="1" />
+            <ctl name="PRI_MI2S_RX Audio Mixer MultiMedia4" val="1" />
+            <ctl name="PRI_MI2S_RX Voice Mixer CS-Voice" val="1" />
+            <ctl name="CS-Voice Capture Mixer TERT_MI2S_TX" val="1" />
+            <!-- let mic on for now -->
+            <ctl name="DEC1 MUX" val="ADC1" />
+            <ctl name="CIC1 MUX" val="AMIC" />
+            <ctl name="ADC1 Volume" val="8" />
+        </init>
+    </mixer>
+
+    <device name="speaker">
+        <path name="on">
+            <ctl name="SPK DAC Switch" val="1" />
+            <ctl name="RX3 MIX1 INP1" val="RX1" />
+            <ctl name="Speaker Top Mode" val="84" />
+        </path>
+        <path name="off">
+            <ctl name="SPK DAC Switch" val="0" />
+            <ctl name="RX3 MIX1 INP1" val="ZERO" />
+            <ctl name="Speaker Top Mode" val="0" />
+        </path>
+    </device>
+
+    <device name="earpiece">
+        <path name="on">
+            <ctl name="RX1 MIX1 INP1" val="RX1" />
+            <ctl name="RDAC2 MUX" val="RX1" />
+            <ctl name="EAR_S" val="1" />
+			<ctl name="RX1 Digital Volume" val="84" />
+        </path>
+        <path name="off">
+            <ctl name="RX1 MIX1 INP1" val="ZERO" />
+            <ctl name="EAR_S" val="0" />
+			<ctl name="RX1 Digital Volume" val="0" />
+        </path>
+    </device>
+
+    <device name="headphone" cardname="msm8916" device="0">
+        <path name="on">
+            <ctl name="RX1 MIX1 INP1" val="RX1" />
+            <ctl name="RX2 MIX1 INP1" val="RX2" />
+            <ctl name="RDAC2 MUX" val="RX2" />
+            <ctl name="HPHL" val="1" />
+            <ctl name="HPHR" val="1" />
+            <ctl name="RX1 Digital Volume" val="84" />
+            <ctl name="RX2 Digital Volume" val="84" />
+        </path>
+        <path name="off">
+            <ctl name="RX1 MIX1 INP1" val="ZERO" />
+            <ctl name="RX2 MIX1 INP1" val="ZERO" />
+            <ctl name="HPHL" val="0" />
+            <ctl name="HPHR" val="0" />
+            <ctl name="RX1 Digital Volume" val="0" />
+            <ctl name="RX2 Digital Volume" val="0" />
+        </path>
+    </device>
+
+    <device name="headset" cardname="msm8916" device="0">
+        <path name="on">
+            <ctl name="DEC1 MUX" val="ADC2" />
+            <ctl name="CIC1 MUX" val="AMIC" />
+            <ctl name="ADC2 Volume" val="8" />
+            <ctl name="ADC2 MUX" val="INP2" />
+        </path>
+        <path name="off">
+            <ctl name="DEC1 MUX" val="ZERO" />
+            <ctl name="ADC2 Volume" val="0" />
+            <ctl name="ADC2 MUX" val="ZERO" />
+        </path>
+    </device>
+
+    <device name="mic" />
+
+    <!-- required for receiving AUDIO_MODE_IN_CALL events in adev_set_mode() -->
+    <device name="voice" />
+
+    <!-- headphone/headset, PlaybackPCM "hw:${CardId},0" -->
+    <!-- <stream type="pcm" dir="out" cardname="msm8916" device="0" /> -->
+
+    <!-- microphone, WcdCapturePCM "hw:${CardId},1" -->
+    <stream type="pcm" dir="in" cardname="msm8916" device="1" />
+
+    <!-- speakers/earpiece, PlaybackPCM "hw:${CardId},2" -->
+    <stream type="pcm" dir="out" cardname="msm8916" device="2" />
+
+</audiohal>

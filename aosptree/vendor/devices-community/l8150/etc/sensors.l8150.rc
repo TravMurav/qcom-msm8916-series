@@ -1,0 +1,15 @@
+on early-init
+    setprop ro.hardware.sensors iio
+    # proximity sensor doesn't report distance in cm
+    setprop ro.iio.proximity.quirks binarize
+    setprop ro.iio.prox.ltr559.nearlevel 75
+
+    # magnetometer has no IRQ and therefore no trigger
+    setprop ro.iio.accel.quirks no-trig
+
+    setprop ro.iio.magn.bmc156.name "BMC156 Magnetometer"
+    setprop ro.iio.anglvel.bmg160.name "BMG160 Gyroscope"
+    setprop ro.iio.temp.bmg160.name "BMG160 Thermometer"
+    setprop ro.iio.accel.bmc156.name "BMC156 Accelerometer"
+    setprop ro.iio.illuminance.ltr559.name "LTR559 ALS"
+    setprop ro.iio.prox.ltr559.name "LTR559 Proximity"
